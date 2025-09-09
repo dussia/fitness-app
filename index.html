@@ -1,18 +1,48 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя Библиотека</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>🎧 Онлайн-библиотека</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body>
+<body class="container py-4">
+  <h1 class="mb-4">📚 Онлайн-библиотека аудиокниг</h1>
+  
+  <form id="searchForm" class="mb-4">
+    <input type="text" id="query" placeholder="Введите название или автора" class="form-control" required>
+  </form>
+  
+  <div id="results"></div>
 
-    <h1>Добро пожаловать в Библиотеку!</h1>
+  <script>
+    // Укажи здесь адрес твоего backend API
+    const API_URL = "https://your-backend.onrender.com/search";
 
-    <button onclick="Telegram.WebApp.close()">Закрыть</button>
+    document.getElementById("searchForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      let q = document.getElementById("query").value;
+      let res = await fetch(`${API_URL}?q=${encodeURIComponent(q)}`);
+      let books = await res.json();
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="script.js"></script>
+      let out = "";
+      if (books.length > 0) {
+        books.forEach(b => {
+          out += `
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5>${b.author} — ${b.title} <span class="badge bg-secondary">${b.genre}</span></h5>
+                <audio controls preload="none" class="w-100 mt-2">
+                  <source src="${b.url}" type="audio/mpeg">
+                </audio>
+                <a href="${b.url}" download="${b.title}.mp3" class="btn btn-sm btn-primary mt-2">Скачать</a>
+              </div>
+            </div>`;
+        });
+      } else {
+        out = "<p>Ничего не найдено 😔</p>";
+      }
+      document.getElementById("results").innerHTML = out;
+    });
+  </script>
 </body>
 </html>
