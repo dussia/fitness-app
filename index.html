@@ -15,7 +15,7 @@
   <div id="results"></div>
 
   <script>
-    const API_URL = "8185115428:AAGzj8H8u-2i-iBV05WLxhr_rVnVwNC1PTs"; // твой backend API
+    const API_URL = "https://martstory.de/website/audiobook/backend/app.py"; // <- здесь адрес backend
 
     document.getElementById("searchForm").addEventListener("submit", async function(e) {
       e.preventDefault();
@@ -33,6 +33,7 @@
                 <audio controls preload="none" class="w-100 mt-2">
                   <source src="${b.url}" type="audio/mpeg">
                 </audio>
+                <a href="${b.url}" download="${b.title}.mp3" class="btn btn-sm btn-primary mt-2">Скачать</a>
               </div>
             </div>`;
         });
