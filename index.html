@@ -15,8 +15,7 @@
   <div id="results"></div>
 
   <script>
-    // Укажи здесь адрес твоего backend API
-    const API_URL = "https://your-backend.onrender.com/search";
+    const API_URL = "https://my-audio-api.onrender.com/search"; // твой backend API
 
     document.getElementById("searchForm").addEventListener("submit", async function(e) {
       e.preventDefault();
@@ -34,7 +33,6 @@
                 <audio controls preload="none" class="w-100 mt-2">
                   <source src="${b.url}" type="audio/mpeg">
                 </audio>
-                <a href="${b.url}" download="${b.title}.mp3" class="btn btn-sm btn-primary mt-2">Скачать</a>
               </div>
             </div>`;
         });
