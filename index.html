@@ -1,47 +1,42 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>🎧 Онлайн-библиотека</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planet Фитнес</title>
+<link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
 </head>
-<body class="container py-4">
-  <h1 class="mb-4">📚 Онлайн-библиотека аудиокниг</h1>
-  
-  <form id="searchForm" class="mb-4">
-    <input type="text" id="query" placeholder="Введите название или автора" class="form-control" required>
-  </form>
-  
-  <div id="results"></div>
+<body>
+<header>
+    <h1>Planet Фитнес — Личный кабинет</h1>
+</header>
 
-  <script>
-    const API_URL = "https://martstory.de/website/audiobook/backend/app.py"; // <- здесь адрес backend
+<nav>
+    <a href="workouts.html">Планы тренировок</a>
+    <a href="nutrition.html">Планы питания</a>
+    <a href="statistics.html">Статистика</a>
+</nav>
 
-    document.getElementById("searchForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      let q = document.getElementById("query").value;
-      let res = await fetch(`${API_URL}?q=${encodeURIComponent(q)}`);
-      let books = await res.json();
+<main>
+    <section>
+        <h2>Добро пожаловать!</h2>
+        <p>Здесь вы можете:</p>
+        <ul>
+            <li>Создавать и редактировать <strong>планы тренировок</strong></li>
+            <li>Создавать и редактировать <strong>планы питания</strong></li>
+            <li>Отслеживать ваш прогресс в <strong>статистике</strong></li>
+        </ul>
+    </section>
 
-      let out = "";
-      if (books.length > 0) {
-        books.forEach(b => {
-          out += `
-            <div class="card mb-3">
-              <div class="card-body">
-                <h5>${b.author} — ${b.title} <span class="badge bg-secondary">${b.genre}</span></h5>
-                <audio controls preload="none" class="w-100 mt-2">
-                  <source src="${b.url}" type="audio/mpeg">
-                </audio>
-                <a href="${b.url}" download="${b.title}.mp3" class="btn btn-sm btn-primary mt-2">Скачать</a>
-              </div>
-            </div>`;
-        });
-      } else {
-        out = "<p>Ничего не найдено 😔</p>";
-      }
-      document.getElementById("results").innerHTML = out;
-    });
-  </script>
+    <section style="margin-top:30px;">
+        <h2>Быстрый доступ</h2>
+        <div style="display:flex; gap:20px; flex-wrap:wrap;">
+            <a class="card" href="workouts.html">Планы тренировок</a>
+            <a class="card" href="nutrition.html">Планы питания</a>
+            <a class="card" href="statistics.html">Статистика</a>
+        </div>
+    </section>
+</main>
 </body>
 </html>
